@@ -1,4 +1,5 @@
 /// <reference types="./ElementHandle.d.ts" />
+import * as path from "node:path";
 var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) ||
   function (receiver, state, value, kind, f) {
     if (kind === "m") throw new TypeError("Private method is not writable");
@@ -660,17 +661,6 @@ export class ElementHandle extends JSHandle {
       "Multiple file uploads only work with <input type=file multiple>",
     );
     // Locate all files and confirm that they exist.
-    let path;
-    try {
-      path = await import("path");
-    } catch (error) {
-      if (error instanceof TypeError) {
-        throw new Error(
-          `JSHandle#uploadFile can only be used in Node-like environments.`,
-        );
-      }
-      throw error;
-    }
     const files = filePaths.map((filePath) => {
       if (path.win32.isAbsolute(filePath) || path.posix.isAbsolute(filePath)) {
         return filePath;

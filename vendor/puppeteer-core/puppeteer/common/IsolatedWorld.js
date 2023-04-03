@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import * as fs from "node:fs";
 var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) ||
   function (receiver, state, value, kind, f) {
     if (kind === "m") throw new TypeError("Private method is not writable");
@@ -388,17 +389,6 @@ export class IsolatedWorld {
       }
     }
     if (path !== null) {
-      let fs;
-      try {
-        fs = (await import("fs")).promises;
-      } catch (error) {
-        if (error instanceof TypeError) {
-          throw new Error(
-            "Can only pass a filepath to addScriptTag in a Node-like environment.",
-          );
-        }
-        throw error;
-      }
       let contents = await fs.readFile(path, "utf8");
       contents += "//# sourceURL=" + path.replace(/\n/g, "");
       const context = await this.executionContext();
